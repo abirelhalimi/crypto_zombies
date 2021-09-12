@@ -1,6 +1,8 @@
-pragma solidity >=0.5.0 <0.6.0; //version of the Solidity compiler that should be used - we can specify a range
+pragma solidity >=0.5.0 <0.6.0;
 
-contract ZombieFactory {
+import "./ownable.sol"; //version of the Solidity compiler that should be used - we can specify a range
+
+contract ZombieFactory is Ownable{
 
     /* events are a way for the contract to tell the front-end that something happened on the blockchain
        the app frontend can be listening for certain events to take action when they happen
