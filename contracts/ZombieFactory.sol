@@ -9,10 +9,13 @@ contract ZombieFactory {
     // State variables are permanently stored in contract storage. They're written to the Ethereum blockchain
     uint dnaDigits = 16;
     uint dnaModulus = 10 ** dnaDigits;
+    uint cooldownTime = 1 days;
 
     struct Zombie {
         string name;
         uint dna;
+        uint32 level;
+        uint32 readyTime;
     }
 
     // an array of structs : useful for storing structured data in the contract
@@ -37,7 +40,7 @@ contract ZombieFactory {
     // external : same as public, except that these functions can only be called outside the contract
     // they can't be called by other functions inside the contract
     function _createZombie(string memory _name, uint _dna) internal {
-        uint id = zombies.push(Zombie(_name, _dna)) - 1;
+        uint id = zombies.push(Zombie(_name, _dna, 1, uint32(now + cooldownTime))) - 1;
         /* msg.sender is a global variable that refers to the address of the person or smart contract
            who called the current function
            msg.sender gives us the security of the Ethereum blockchain since the only way to modify someone else's
